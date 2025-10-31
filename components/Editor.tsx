@@ -32,6 +32,10 @@ const Editor: React.FC<EditorProps> = ({ image, onReset }) => {
             setCartoonifiedImage(null);
 
             try {
+                if (!process.env.API_KEY) {
+                    throw new Error("API key not found. Please ensure the API_KEY environment variable is set.");
+                }
+
                 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
                 const imageParts = image.split(';base64,');
